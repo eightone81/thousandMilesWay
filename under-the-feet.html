@@ -8,6 +8,14 @@
 
 </body>
 <script>
+    if(typeof Object.beget !== "function"){
+        Object.create = function (o) {
+            let F = function () {} ;
+            F.prototype = o;
+            return new F();
+        }
+    }
+
     let myObject = {
         name:"jack",
         age:28,
@@ -17,12 +25,67 @@
             console.log(this.name);
         }
     }
+
     delete myObject.name;
+
     // console.log(myObject.prototype);
+
     for(key in myObject){
         if(typeof myObject[key] !== "function") {
             console.log(key + ":" + myObject[key]);
         }
     }
+
+
+    function sum(a,b){
+        return a + b;
+    }
+
+    let anotherObject = {
+        value:0,
+        increment : function (inc){
+            this.value += typeof inc === "number" ? inc : 1;
+        }
+    };
+
+    anotherObject.increment();
+    console.log(anotherObject.value);
+
+    anotherObject.increment(2);
+    console.log(anotherObject.value);
+
+
+    anotherObject.double = function (){
+        let that = this;
+        let helper = function (){
+           that.value = sum(that.value,that.value);
+        }
+        helper();
+    }
+    anotherObject.double();
+    console.log(anotherObject.value)
+
+
+    let Quo = function (string){
+        this.status = typeof string === "string" ? string : "none"
+    }
+
+    Quo.prototype.get_status = function (){
+        return this.status;
+    }
+
+    let myQuo = new Quo("blablabla");
+
+    console.log(myQuo.get_status());
+
+    let anotherSum = function (){
+        let sum = 0;
+        for(let i=0;i<arguments.length;i++){
+            sum += arguments[i];
+        }
+        return sum;
+    }
+
+    console.log(anotherSum(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17))
 </script>
 </html>
