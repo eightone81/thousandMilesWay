@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let myObject = {
+        name:"jack",
+        age:28,
+        weight:70,
+        height:182,
+        getName:function (){
+            console.log(this.name);
+        }
+    }
+    delete myObject.name;
+    // console.log(myObject.prototype);
+    for(key in myObject){
+        if(typeof myObject[key] !== "function") {
+            console.log(key + ":" + myObject[key]);
+        }
+    }
+</script>
+</html>
