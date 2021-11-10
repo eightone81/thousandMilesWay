@@ -88,6 +88,78 @@
 
     console.log(anotherSum(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17))
     console.log(anotherSum(2,3,3))
-</script>
+
+
+    let add = function (a,b){
+        if(typeof a !== "number" || typeof b !== "number"){
+            throw {
+                name:"TypeError",
+                message:"add need numbers"
+            }
+        }
+        return a + b;
+    }
+
+    let  try_it = function (){
+        try{
+            add("1",2);
+        }catch (e){
+            console.log(e.name+":"+e.message);
+        }
+    }
+
+    try_it();
+
+
+    Function.prototype.method = function (name,f){
+        if(!this.prototype[name]){
+            this.prototype[name] = f;
+        }
+        return this;
+    }
+
+    Number.method("integer",function (){
+        return this < 0 ? Math.ceil(this) : Math.floor(this);
+    })
+
+    let a = -1.5;
+    console.log(a.integer());
+
+    String.method("trim",function (){
+        return this.replace(/^\s+|\s+$/g,"");
+    })
+    let b = "  This is a test message ";
+    console.log(b.trim())
+
+    let copyObject = function (obj){
+        if(obj === null) return null;
+        if(typeof obj !== "object") return  obj;
+        if(obj.constructor === Date) return new Date(obj);
+        let newObj = new obj.constructor();
+        for (key in obj){
+            if(obj.hasOwnProperty(key)){
+                let val = obj[key];
+                newObj[key] = typeof val === "object" ? arguments.callee(val) : val;
+            }
+        }
+        return newObj;
+    }
+
+    let fade = function (node){
+        let lv = 1;
+        let step = function (){
+            let hex = lv.toString(16);
+            node.style.backgroundColor = lv < 17 ? "#FFFF0"  + hex : "#FFFF"  + hex;
+            if(lv < 255){
+                lv++;
+                setTimeout(step,100);
+            }
+        }
+        setTimeout(step,100);
+    }
+    // fade(document.body);
+
+
+
 </script>
 </html>
